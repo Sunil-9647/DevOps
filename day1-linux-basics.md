@@ -24,17 +24,17 @@ DevOps engineers live in the terminal because automation, debugging, and remote 
 ### Basic Commands and What They Do
 
 #### `pwd` Print Working Directory:
-pwd command prints the full filename of the current working directory.
+pwd command prints the full filename of the current working directory.<br>
 Syntax:
 	pwd [options]
 
 #### `ls` Lists:
-ls command lists the files and directories under currentworking directory.
+ls command lists the files and directories under currentworking directory.<br>
 Syntax:
 	ls [options] [directory_or_path]
 
 #### `cd` Change Directory:
-cd command is used to change the directory. Essential for navigation in Linux.
+cd command is used to change the directory. Essential for navigation in Linux.<br>
 Syntax:
 	cd [path_or_dirctory]
 
