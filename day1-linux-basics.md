@@ -15,9 +15,9 @@ The terminal is a text-based interface that allows us to interact directly with 
 DevOps engineers live in the terminal because automation, debugging, and remote server access all depend on it.
 
 #### The "Big Three"
-1. Terminal (The Window): This is application you actually see and type into (e.g., GNOME Terminal, or Windows Terminal). It's just the "skin" or te environment.
-2. Shell (The Brain): This is the program running inside the terminal that understands your commands. It translates your text into instructions the computer's core(the kernal) can understand.
-3. Console (The Hardware): Historically, this was the physical screen and keyboard plugged into a massive mainframe computer.
+1. **Terminal (The Window)**: This is application you actually see and type into (e.g., GNOME Terminal, or Windows Terminal). It's just the "skin" or te environment.
+2. **Shell (The Brain)**: This is the program running inside the terminal that understands your commands. It translates your text into instructions the computer's core(the kernal) can understand.
+3. **Console (The Hardware)**: Historically, this was the physical screen and keyboard plugged into a massive mainframe computer.
 
 ---
 
@@ -39,32 +39,32 @@ Syntax:
 	cd [path_or_dirctory]
 
 #### `mkdir` Make Directory:
-mkdir command used to creates a new directory.
+mkdir command used to creates a new directory.<br>
 Syntax:
 	mkdir [options] directory_name1 directory_name2...
 
-#### `touch`
-touch command used to creates a new empty filein a specific directory. Commonly used to create config or log files quickly.
+#### `touch`:
+touch command used to creates a new empty filein a specific directory. Commonly used to create config or log files quickly.<br>
 Syntax:
 	touch [options] [path_and_filename]
 
-#### `echo`
-echo command used to print text in your command as a terminal output. Often used in scripts and quick file creation.
+#### `echo`:
+echo command used to print text in your command as a terminal output. Often used in scripts and quick file creation.<br>
 Syntax:
 	echo [options] [text]
 
 #### `cat` concatination:
-cat command used to concatenates files and prints it on the standard output.
+cat command used to concatenates files and prints it on the standard output.<br>
 Syntax:
 	cat [file_name]
 
 #### `rm` Remove:
-rm command is used to remove/delete the file from the directory. You must have the write permission for the folder or use 'sudo'.
+rm command is used to remove/delete the file from the directory. You must have the write permission for the folder or use 'sudo'.<br>
 Syntax:
 	rm [options] file1 file2...
 
 #### `cp` Copy:
-cp command is used to copy files from one location to another. If the destination is an existing file, then the file is overwritten; If the destination is an existing directory, the file is copied into the directory (the directory is not overwritten).
+cp command is used to copy files from one location to another. If the destination is an existing file, then the file is overwritten; If the destination is an existing directory, the file is copied into the directory (the directory is not overwritten).<br>
 Syntax:
 	cp file1 file2 [target_path]
 
