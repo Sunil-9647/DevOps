@@ -75,18 +75,18 @@ Syntax:
 
 2. The 2-ways to use `chmod`:
 
-	A. Symbolic Mode (easy to remember).
-		 * This uses letters and mathematical symbols to add or remove permissions.
-			- `+` adds a permission.
-			- `-` removes a permission.
-			- `=` sets the permission exactly.
+A. Symbolic Mode (easy to remember).<br>
+* This uses letters and mathematical symbols to add or remove permissions.<br>
+- `+` adds a permission.<br>
+- `-` removes a permission.<br>
+- `=` sets the permission exactly.<br>
 
-	B. Absolute (Numeric) Mode.
-		* This uses a 3-digit number to set all permissions at once. Each digit represents a person (Owner, Group, Others), and the number is the sum of their permissions.
-			- `4` = Read (`r`)
-			- `2` = Write (`w`)
-			- `1` = Execute (`x`)
-			- `0` = No permission
+B. Absolute (Numeric) Mode.<br>
+* This uses a 3-digit number to set all permissions at once. Each digit represents a person (Owner, Group, Others), and the number is the sum of their permissions.<br>
+- `4` = Read (`r`)<br>
+- `2` = Write (`w`)<br>
+- `1` = Execute (`x`)<br>
+- `0` = No permission<br>
   
 #### `chown` Change Owner:
 chown command changes what can be done with a file (read/write/execute), `chown` changes who the file belongs to, you almost always need to use `sudo` with this command.<br>
@@ -94,7 +94,7 @@ Syntax:
 	sudo chown [user]:[group] [file]
 
 1. **Changing the owner**:
-	To change the owner of a file to a user named "john".
+	To change the owner of a file to a user named "john".<br>
 		- sudo chown jhon report.txt
 
 2. **Changing the group**:
