@@ -74,13 +74,11 @@ Syntax:
 		- Users: `u` (User/Owner), `g` (Group), `o` (Others/Everyone else)
 
 2. The 2-ways to use `chmod`:
-
 A. Symbolic Mode (easy to remember).<br>
 * This uses letters and mathematical symbols to add or remove permissions.<br>
 - `+` adds a permission.<br>
 - `-` removes a permission.<br>
 - `=` sets the permission exactly.<br>
-
 B. Absolute (Numeric) Mode.<br>
 * This uses a 3-digit number to set all permissions at once. Each digit represents a person (Owner, Group, Others), and the number is the sum of their permissions.<br>
 - `4` = Read (`r`)<br>
@@ -94,14 +92,14 @@ Syntax:
 	sudo chown [user]:[group] [file]
 
 1. **Changing the owner**:
-	To change the owner of a file to a user named "john".<br>
-		- sudo chown jhon report.txt
+   To change the owner of a file to a user named "john".<br>
+   + sudo chown jhon report.txt
 
-2. **Changing the group**:
-	To change only the group (keeping the owner same), use colon before the group name.<br>
-		- sudo chown :developers report.txt
+3. **Changing the group**:
+   To change only the group (keeping the owner same), use colon before the group name.<br>
+   + sudo chown :developers report.txt
 
-3. **Changing both at once**:
+5. **Changing both at once**:
 	This is common way to use the command.<br>
 		- sudo chown jhon:developers report.txt
 
