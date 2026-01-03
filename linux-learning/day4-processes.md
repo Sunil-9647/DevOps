@@ -15,7 +15,7 @@ Syntax:
 2. **`ps -ef` (The Standard style)**: This provides similar information but in a slightly different format, often used to see the "Parent Process ID" (PPID), which tells you which program started another program.
 
 #### `top`:
-top command is used for real-time system monitor. While `ps` gives you a static snapshot of what is running,`top` provides a live, updating dashboard of your computer's health.
+top command is used for real-time system monitor. While `ps` gives you a static snapshot of what is running,`top` provides a live, updating dashboard of your computer's health.<br>
 Syntax:
 	top [options]
 
@@ -24,14 +24,14 @@ The`top` interface is split into two halves: the System Summary (top 5 lines) an
 Most Ubuntu users prefer a tool called htop. It’s not installed by default, but it’s much more user-friendly: it has color-coded bars, supports mouse clicking, and lets you scroll up/down and left/right.
 
 #### `kill`:
-kill command is a very useful command in Linux that is used to terminate the process manually. It sends a signal which ultimately terminates or kills a particular process or group of processes. If the user does not specify a signal to send with the kill command, the process is terminated using the default TERM signal.
+kill command is a very useful command in Linux that is used to terminate the process manually. It sends a signal which ultimately terminates or kills a particular process or group of processes. If the user does not specify a signal to send with the kill command, the process is terminated using the default TERM signal.<br>
 Syntax:
 	kill [option] <pid>
 
 #### `systemctl`:
 systemctl command is the central tool for controlling the systemd init system and service manager. It is essentially the "remote control" for your operating system's background services (daemons).
 
-Whether you are starting a web server, checking why your database failed, or telling your computer to reboot, systemctl is the command you will use.
+Whether you are starting a web server, checking why your database failed, or telling your computer to reboot, systemctl is the command you will use.<br>
 Syntax:
        systemctl [option] comand [unit...]
 
