@@ -3,27 +3,27 @@
 ### Purpose of each commands:
 
 #### `ip` Internet Protocol:
-ip command is a powerful utility for network configuration and management. It allows users to interact with various networking components such as network interfaces, routing tables, addresses, and more.
+ip command is a powerful utility for network configuration and management. It allows users to interact with various networking components such as network interfaces, routing tables, addresses, and more.<br>
 Syntax:
 	ip [options] object {command | help}
 
 #### `ss` Socket Statistics:
-ss command is used for inspecting and displaying detailed information about network sockets on a Linux system.
+ss command is used for inspecting and displaying detailed information about network sockets on a Linux system.<br>
 Syntax:
 	ss [options]
 
 #### `ping` Packet Internet Groper:
-ping command is used to check the network connectivity between the host and server/host. This command takes as input the IP address or the URL and sends a data packet to the specified address with the message "PING" and gets a response from the server/host this time is recorded which is called latency. Fast ping with low latency means a faster connection.
+ping command is used to check the network connectivity between the host and server/host. This command takes as input the IP address or the URL and sends a data packet to the specified address with the message "PING" and gets a response from the server/host this time is recorded which is called latency. Fast ping with low latency means a faster connection.<br>
 Syntax:
 	ping [options] host_or_IP_address
 	
 #### `ssh` Secure Shell:
-ssh is a secure communication protocol that allows a user to access and control a remote computer over a network.
+ssh is a secure communication protocol that allows a user to access and control a remote computer over a network.<br>
 Syntax:
 	ssh [options] [user@]hostname
 
 #### `curl` 
-curl is used to transfer data between a system and a server using different network protocols. It is widely used for fetching web content, testing APIs, and sending or receiving data over the network.
+curl is used to transfer data between a system and a server using different network protocols. It is widely used for fetching web content, testing APIs, and sending or receiving data over the network.<br>
 Syntax:
 	curl [options] [URL]
 
