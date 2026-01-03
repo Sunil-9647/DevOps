@@ -73,12 +73,13 @@ Syntax:
 		- Permissions: `r` (Read), `w` (Write), `x` (Execute)
 		- Users: `u` (User/Owner), `g` (Group), `o` (Others/Everyone else)
 
-2. The 2-ways to use `chmod`:
+2. The 2-ways to use `chmod`:<br>
 A. Symbolic Mode (easy to remember).<br>
 * This uses letters and mathematical symbols to add or remove permissions.<br>
 - `+` adds a permission.<br>
 - `-` removes a permission.<br>
 - `=` sets the permission exactly.<br>
+
 B. Absolute (Numeric) Mode.<br>
 * This uses a 3-digit number to set all permissions at once. Each digit represents a person (Owner, Group, Others), and the number is the sum of their permissions.<br>
 - `4` = Read (`r`)<br>
