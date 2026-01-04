@@ -3,7 +3,7 @@
 ### Purpose of commands:
 
 #### `git branch`:
-The git branch is like a separate workspace where you can make changes and try new ideas without affecting the main project.
+The git branch is like a separate workspace where you can make changes and try new ideas without affecting the main project.<br>
 Syntax:
 	`git branch [<new-branch-name>]`
 
@@ -11,13 +11,13 @@ Syntax:
 
 
 #### `git merge`:
-The git merge command is used to combine the changes from two branches into one. It integrates work from different branches into a single unified history without losing progress.
+The git merge command is used to combine the changes from two branches into one. It integrates work from different branches into a single unified history without losing progress.<br>
 Syntax:
 	 `git merge [<branch>]`
 
 
 #### `git pull`:
-The git pull command is used to fetch and download new content from a remote Git repository and immediately integrate those changes into your current local branch.
+The git pull command is used to fetch and download new content from a remote Git repository and immediately integrate those changes into your current local branch.<br>
 Syntax:
 	`git pull [<options>] [<repository>]`
 
