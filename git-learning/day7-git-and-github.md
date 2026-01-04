@@ -3,32 +3,32 @@
 ### Purpose of commands:
 
 #### `git init`:
-The git init command creates a new, empty Git repository in the current or specified directory. Basically a **.git** directory with subdirectories for objects, refs/heads, refs/tags, and template files.
+The git init command creates a new, empty Git repository in the current or specified directory. Basically a **.git** directory with subdirectories for objects, refs/heads, refs/tags, and template files.<br>
 Syntax:
 	`git init`
 
 #### `git status`:
-The git status command is used to display the current state of the working directory and the staging area. 
+The git status command is used to display the current state of the working directory and the staging area.<br>
 Syntax:
 	`git status`
 
 #### `git add`:
-The git add command is used to move changes from your working directory to the staging area (or "index"), preparing them to be included in the next commit.
+The git add command is used to move changes from your working directory to the staging area (or "index"), preparing them to be included in the next commit.<br>
 Syntax:
 	`git add <filename>`
 
 #### `git commit`:
-The git commit command is used to save a snapshot of your staged changes to the local repository's history.
+The git commit command is used to save a snapshot of your staged changes to the local repository's history.<br>
 Syntax:
 	`git commit -m "commit message"`
 
 #### `git log`:
-The git log command is used to view the history of committed changes in a Git repository.
+The git log command is used to view the history of committed changes in a Git repository.<br>
 Syntax:
 	`git log [options]`
 
 #### `git push`:
-The git push command is used to upload local repository content (commits) to a remote repository.
+The git push command is used to upload local repository content (commits) to a remote repository.<br>
 Syntax:
 	`git push <remote> <branch>`
 
