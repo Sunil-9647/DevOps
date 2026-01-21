@@ -37,11 +37,23 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set executable permissions
-        run: chmod +x ./*.sh
+      - name: Install zip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
 
       - name: Run build
         run: ./build.sh
+
+      - name: package build artifact
+        run: ./package.sh
+
+      - name: upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: ./cicd-learning/ci-simulation/ci-artifacts/*.zip
+          if-no-files-found: error
 
   test:
     name: Test
