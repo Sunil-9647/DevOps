@@ -99,17 +99,18 @@ jobs:
 
        - name: Workspace after download
          run: |
+          set -e
           pwd
           echo "Listing workspace after download:"
           ls -la
           echo "Listing downloaded-artifact folder:"
-          ls -la downloaded-artifact
+          ls -la download-artifact
 
        - name: Unzip artifact
          run: |
           sudo apt-get update
           sudo apt-get install -y unzip
-          unzip -o downloaded-artifact/*.zip -d extracted
+          unzip -o download-artifact/*.zip -d extracted
           echo "Extracted contents:"
           la -la extracted
 
