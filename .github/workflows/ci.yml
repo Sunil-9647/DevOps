@@ -80,3 +80,32 @@ jobs:
           path: ./cicd-learning/ci-simulation/*.log
           if-no-file-found: warn
 
+  deploy-sim:
+     name: Deploy Simulation (Consume Artifact)
+     runs-on: ubuntu-latest
+     needs: [ build, test ]
+     steps:
+       - name: Download build artifact
+         uses: actions/download-artifact@v4
+         with:
+           name: build-artifact
+           path: download-artifact
+
+       - name: Show downloaded files
+         run: |
+          echo "Downloaded artifact contents:"
+          ls -l downloaded-artifact
+
+       - name: Unzip artifact
+         run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          unzip -o downloaded-artifact/*.zip -d extracted
+
+       - name: Deploy simulation
+         run: |
+          mkdir -p deploy-env/dev
+          cp -r extracted/dist deploy-env/dev/
+          echo "Deployed files:"
+          find deploy-env/dev -type f -maxdepth 3 -print -exec cat {} \;
+
