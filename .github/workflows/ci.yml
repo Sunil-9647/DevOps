@@ -85,22 +85,33 @@ jobs:
      runs-on: ubuntu-latest
      needs: [ build, test ]
      steps:
+       - name: Workspace before download
+         run: |
+          pwd
+          echo "Listing workspace:"
+          ls -la
+
        - name: Download build artifact
          uses: actions/download-artifact@v4
          with:
            name: build-artifact
            path: download-artifact
 
-       - name: Show downloaded files
+       - name: Workspace after download
          run: |
-          echo "Downloaded artifact contents:"
-          ls -l downloaded-artifact
+          pwd
+          echo "Listing workspace after download:"
+          ls -la
+          echo "Listing downloaded-artifact folder:"
+          ls -la downloaded-artifact
 
        - name: Unzip artifact
          run: |
           sudo apt-get update
           sudo apt-get install -y unzip
           unzip -o downloaded-artifact/*.zip -d extracted
+          echo "Extracted contents:"
+          la -la extracted
 
        - name: Deploy simulation
          run: |
