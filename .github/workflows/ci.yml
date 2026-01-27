@@ -100,6 +100,8 @@ jobs:
         env:
          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
+         sudo apt-get update
+         sudo apt-get install -y unzip
          ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
          unzip -o "${ZIP_FILE}" -d extracted
          mkdir -p "$DEPLOY_PATH"
@@ -124,6 +126,8 @@ jobs:
         env:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
           ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
           unzip -o "${ZIP_FILE}" -d extracted
           mkdir -p "$DEPLOY_PATH"
@@ -148,6 +152,8 @@ jobs:
         env:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
           ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
           unzip -o "${ZIP_FILE}" -d extracted
           mkdir -p "$DEPLOY_PATH"
