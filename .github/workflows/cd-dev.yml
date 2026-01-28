@@ -1,7 +1,10 @@
 name: CD - Deploy to DEV
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
     inputs:
       version:
         description: "Artifact version to deploy (example: v-9c0f9c9)"
@@ -10,39 +13,46 @@ on:
 
 jobs:
   deploy-dev:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Deploy to DEV
     runs-on: ubuntu-latest
     environment: dev
 
     steps:
-      - name: Download versioned build artifact
+      - name: Download build artifact from CI run
         uses: actions/download-artifact@v4
         with:
-          name: build-artifact-${{ inputs.version }}
+          name: build-artifact
+          run-id: ${{ github.event.workflow_run.id }}
           path: artifact
 
       - name: Show download files
         run: |
           echo "Downloaded artifact contents:"
           ls -la artifact
+          
+      - name: Detect version from zip
+        run: |
+          set -e
+          ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+          # Example: app-build-<sha>.zip  -> capture <sha>
+          VERSION="$(basename "$ZIP_FILE" .zip)"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected VERSION: $VERSION"
 
       - name: Deploy to DEV using secret path
         env:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-          VERSION: ${{ inputs.version }}
         run: |
           set -e
           sudo apt-get update
           sudo apt-get install -y unzip
-
-          # your zip is named by full SHA in package.sh
-          ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
+          
           echo "Deploying zip: $ZIP_FILE"
-
           unzip -o "$ZIP_FILE" -d extracted
 
           # versioned deployment directory (very important for rollback)
           mkdir -p "$DEPLOY_PATH/$VERSION"
           cp -r extracted/dist "$DEPLOY_PATH/$VERSION/"
-
           echo "DEV deployed version: $VERSION (path hidden)"

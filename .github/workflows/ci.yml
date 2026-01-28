@@ -65,8 +65,8 @@ jobs:
       - name: upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifact-${{ env.VERSION }}
-          path: ./cicd-learning/ci-simulation/ci-artifacts/app-${{ env.VERSION }}.zip
+          name: build-artifact
+          path: ./cicd-learning/ci-simulation/ci-artifacts/*.zip
           if-no-files-found: error
 
   test:
