@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Artifact version to deploy (example: v-1a2b3c4)"
+        description: "Artifact version to deploy (example: v-9c0f9c9)"
         required: true
         type: string
 
@@ -21,6 +21,11 @@ jobs:
           name: build-artifact-${{ inputs.version }}
           path: artifact
 
+      - name: Show download files
+        run: |
+          echo "Downloaded artifact contents:"
+          ls -la artifact
+
       - name: Deploy to DEV using secret path
         env:
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
@@ -30,15 +35,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y unzip
 
-          ZIP_FILE="artifact/app-${VERSION}.zip"
-          if [ ! -f "$ZIP_FILE" ]; then
-            echo "ERROR: Expected artifact zip not found: $ZIP_FILE"
-            echo "Available files:"
-            ls -la artifact || true
-            exit 1
-          fi
+          # your zip is named by full SHA in package.sh
+          ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
+          echo "Deploying zip: $ZIP_FILE"
 
           unzip -o "$ZIP_FILE" -d extracted
+
+          # versioned deployment directory (very important for rollback)
           mkdir -p "$DEPLOY_PATH/$VERSION"
           cp -r extracted/dist "$DEPLOY_PATH/$VERSION/"
+
           echo "DEV deployed version: $VERSION (path hidden)"
