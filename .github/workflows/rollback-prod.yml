@@ -1,0 +1,57 @@
+name: PROD Rollback
+
+permissions:
+  actions: read
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Previous stable version to rollback to (example: app-v-abc1234)"
+        required: true
+        type: string
+
+jobs:
+  rollback-prod:
+    name: Rollback PROD
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Download build-artifact for rollback
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: ci.yml
+          name: build-artifact
+          path: artifact
+          search_artifacts: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select rollback version
+        run: |
+          set -e
+          ZIP_FILE="artifact/${{ inputs.version }}.zip"
+
+          if [ ! -f "$ZIP_FILE" ]; then
+            echo "ERROR: Rollback artifact not found: $ZIP_FILE"
+            ls -la artifact
+            exit 1
+          fi
+
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+          echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+          echo "Rolling back to version: $VERSION"
+
+      - name: Rollback deployment
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y unzip
+
+          unzip -o "$ZIP_FILE" -d extracted
+          mkdir -p "$DEPLOY_PATH/$VERSION"
+          cp -r extracted/dist "$DEPLOY_PATH/$VERSION/"
+          echo "PROD rolled back to version: $VERSION (path hidden)"
