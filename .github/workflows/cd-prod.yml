@@ -1,0 +1,58 @@
+name: CD - Deploy to PROD
+
+permissions:
+  actions: read
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Exact artifact version to deploy (example: app-v-f1b2267)"
+        required: true
+        type: string
+
+jobs:
+  deploy-prod:
+    name: Deploy to PROD
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Download artifact by version
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: ci.yml
+          name: build-artifact
+          path: artifact
+          search_artifacts: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select requested version
+        run: |
+          set -e
+          ZIP_FILE="artifact/${{ inputs.version }}.zip"
+
+          if [ ! -f "$ZIP_FILE" ]; then
+            echo "ERROR: Artifact version not found: $ZIP_FILE"
+            echo "Available artifacts:"
+            ls -la artifact
+            exit 1
+          fi
+
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+          echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+          echo "Deploying PROD version: $VERSION"
+
+      - name: Deploy to PROD
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y unzip
+
+          unzip -o "$ZIP_FILE" -d extracted
+          mkdir -p "$DEPLOY_PATH/$VERSION"
+          cp -r extracted/dist "$DEPLOY_PATH/$VERSION/"
+          echo "PROD deployed version: $VERSION (path hidden)"
