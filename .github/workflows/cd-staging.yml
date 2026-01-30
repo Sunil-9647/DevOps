@@ -1,0 +1,56 @@
+name: CD - Deploy to STAGING
+
+permissions:
+  actions: read
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "CI run_id to promote to STAGING"
+        required: true
+        type: string
+
+jobs:
+  deploy-staging:
+    name: Deploy to STAGING
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Download artifact from CI run
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: ci.yml
+          run_id: ${{ inputs.run_id }}
+          name: build-artifact
+          path: artifact
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show downloaded files
+        run: |
+          echo "Downloaded artifact contents:"
+          ls -la artifact
+
+      - name: Detect version
+        run: |
+          set -e
+          ZIP_FILE="$(ls -1 artifact/*.zip | head -n 1)"
+          VERSION="$(basename "$ZIP_FILE" .zip)"
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Promoting version: $VERSION"
+
+      - name: Deploy to STAGING
+        env:
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y unzip
+
+          unzip -o "$ZIP_FILE" -d extracted
+          mkdir -p "$DEPLOY_PATH/$VERSION"
+          cp -r extracted/dist "$DEPLOY_PATH/$VERSION/"
+          echo "STAGING deployed version: $VERSION (path hidden)"
