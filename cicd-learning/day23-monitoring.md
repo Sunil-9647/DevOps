@@ -11,14 +11,16 @@ A DevOps engineer is judged not only by how fast they deploy, but also by how sa
 Monitoring means observing the system continuously using:  
 + metrics (latency, traffic, errors, saturation)  
 + logs (events and errors)  
-+ trends (how the system behaves over time)  
++ trends (how the system behaves over time)
+
 Monitoring is information. It helps us understand what the system is doing.
 
 **Alerting**  
 Alerting is a subset of monitoring that creates notifications when:  
 + users are impacted, or  
 + business-critical functionality is failing, or  
-+ action is needed immediately  
++ action is needed immediately
+
 Alerting is **interruption + action**.
 
 **Rule:** If no human action is required, it should not be an alert.
@@ -34,7 +36,8 @@ Examples:
 + disk usage  
 + pod restarts  
 + queue length  
-+ cache hit rate  
++ cache hit rate
+
 Signals are helpful for debugging and planning, but they are not always emergencies.
 
 **Alert**  
@@ -53,7 +56,8 @@ Most production incidents can be detected using these four:
 1. **Latency:** how slow requests are (p95/p99 important)  
 2. **Traffic:** how many requests are coming in (spike/drop indicates issues)  
 3. **Errors:** failed requests or incorrect results  
-4. **Saturation:** resource exhaustion (CPU, memory, connections, disk)  
+4. **Saturation:** resource exhaustion (CPU, memory, connections, disk)
+
 These signals are strongly connected to user experience.
 
 ---
@@ -91,7 +95,8 @@ A good alert must be:
 Alert fatigue happens when teams get paged too often for low-severity issues. Over time, engineers:  
 + stop trusting alerts  
 + mute notifications  
-+ miss real incidents  
++ miss real incidents
+
 Bad alerting is dangerous because it delays response during real outages.
 
 ---
@@ -102,7 +107,8 @@ When an alert fires:
 + identify user impact quickly  
 + identify current production version  
 + identify last known-good version  
-+ decide rollback vs investigate  
++ decide rollback vs investigate
+
 On-call work is about restoring service first, then doing deep debugging later.
 
 ---
