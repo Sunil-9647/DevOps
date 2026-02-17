@@ -14,7 +14,8 @@
 
 ### Proof we did:
 
-- **Create file inside container → restart same container → file stays.**  
+- **Create file inside container → restart same container → file stays.**
+
 **Step 1:** Create an Ubuntu container (interactive)  
 ```bash
 docker run -it --name test-ubuntu ubuntu:24.04 bash
@@ -46,7 +47,6 @@ exit
 ```
 
 That proves the container has its own writable layer (it kept my file).
-
 
 - **Remove container → recreate container from same image → file is gone.**
 
