@@ -1,0 +1,11 @@
+.git
+__pycache__/
+*.pyc
+*.log
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+dist/
+build/
