@@ -2,3 +2,4 @@
 cicd-learning/ci-simulation/ci-artifacts/
 cicd-learning/ci-simulation/dist/
 *.zip
+.env
