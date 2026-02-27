@@ -1,4 +1,4 @@
-## Day 27 to 30 — Docker Compose Notes 02 — FastAPI + Postgres (Dev vs Prod)
+## Day 28 to 30 — Docker Compose Notes 02 — FastAPI + Postgres (Dev vs Prod)
 
 ### What we built (high-level)
 We containerized a simple FastAPI service and connected it to PostgreSQL using Docker Compose.  
@@ -213,18 +213,18 @@ If `/db-check` fails, typical causes:
 ### Commands we used (quick reference)
 
 #### DEV stack
-docker compose -f compose.yaml -f compose.dev.yaml up -d --build
+`docker compose -f compose.yaml -f compose.dev.yaml up -d --build`
 
 #### PROD-style stack
-docker compose -f compose.yaml -f compose.prod.yaml up -d --build
+`docker compose -f compose.yaml -f compose.prod.yaml up -d --build`
 
 #### Shut down
-docker compose down
+`docker compose down`
 
 #### Verify DB check
-curl -sS http://localhost:8080/db-check ; echo
+`curl -sS http://localhost:8080/db-check ; echo`
 
 #### Inspect merged compose config (debugging)
-docker compose -f compose.yaml -f compose.prod.yaml config
+`docker compose -f compose.yaml -f compose.prod.yaml config`
 
 ---
