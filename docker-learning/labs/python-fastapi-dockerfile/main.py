@@ -1,7 +1,36 @@
 import os
+from urllib.parse import quote_plus
 from fastapi import FastAPI
 
 app = FastAPI()
+
+def get_database_url() -> str:
+    # 1) Prefer explicit DATABASE_URL if present
+    direct = os.getenv("DATABASE_URL", "").strip()
+    if direct:
+        return direct
+
+    # 2) Otherwise build from POSTGRES_* variables + password from file
+    user = os.getenv("POSTGRES_USER", "").strip()
+    db = os.getenv("POSTGRES_DB", "").strip()
+    host = os.getenv("POSTGRES_HOST", "db").strip()
+    port = os.getenv("POSTGRES_PORT", "5432").strip()
+
+    password = os.getenv("POSTGRES_PASSWORD", "").strip()
+    pw_file = os.getenv("POSTGRES_PASSWORD_FILE", "").strip()
+
+    if not password and pw_file:
+        try:
+            with open(pw_file, "r", encoding="utf-8") as f:
+                password = f.read().strip()
+        except Exception:
+            password = ""
+
+    if not (user and db and host and port and password):
+        return ""
+
+    # URL-encode password for safety (special chars)
+    return f"postgresql://{user}:{quote_plus(password)}@{host}:{port}/{db}"
 
 @app.get("/")
 def root():
@@ -9,9 +38,9 @@ def root():
 
 @app.get("/db-check")
 def db_check():
-    db_url = os.getenv("DATABASE_URL", "")
+    db_url = get_database_url()
     if not db_url:
-        return {"ok": False, "error": "DATABASE_URL not set"}
+        return {"ok": False, "error": "DATABASE_URL not set (and cannot build from POSTGRES_* vars)"}
 
     try:
         import psycopg
