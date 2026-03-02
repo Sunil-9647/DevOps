@@ -1,0 +1,48 @@
+name: Docker Image CI (FastAPI)
+
+on:
+  push:
+    paths:
+      - "docker-learning/labs/python-fastapi-dockerfile/**"
+      - ".github/workflows/docker-image-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build PROD image
+        run: |
+          cd docker-learning/labs/python-fastapi-dockerfile
+          docker build --build-arg TARGET=prod -t py-api:${{ github.sha }} .
+
+      - name: Run container
+        run: |
+          docker run -d --name pyapi -p 8080:8000 py-api:${{ github.sha }}
+
+      - name: Wait for app
+        run: |
+          for i in {1..20}; do
+            if curl -fsS http://localhost:8080/ >/dev/null; then
+              echo "App is up"
+              exit 0
+            fi
+            echo "Waiting..."
+            sleep 1
+          done
+          echo "App did not start in time"
+          docker logs pyapi || true
+          exit 1
+
+      - name: Smoke test (GET /)
+        run: |
+          curl -i http://localhost:8080/
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f pyapi || true
