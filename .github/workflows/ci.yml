@@ -83,14 +83,9 @@ jobs:
       - name: Set executable permissions
         run: chmod +x ./*.sh
 
-      - name: Run tests
-        run: ./test.sh
-
-      - name: Test (write log)
+      - name: Run tests (write log)
         run: |
-          mkdir -p cicd-learning/ci-simulation
-          chmod +x test.sh
-          ./test.sh 2>&1 | tee cicd-learning/ci-simulation/test.log
+          ./test.sh 2>&1 | tee test.log
 
       - name: Upload logs (artifact)
         if: always()
@@ -98,4 +93,4 @@ jobs:
         with:
           name: ci-logs
           path: ./cicd-learning/ci-simulation/*.log
-          if-no-files-found: warn
+          if-no-files-found: error
