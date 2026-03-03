@@ -86,6 +86,12 @@ jobs:
       - name: Run tests
         run: ./test.sh
 
+      - name: Test (write log)
+        run: |
+          mkdir -p cicd-learning/ci-simulation
+          chmod +x test.sh
+          ./test.sh 2>&1 | tee cicd-learning/ci-simulation/test.log
+
       - name: Upload logs (artifact)
         if: always()
         uses: actions/upload-artifact@v4
