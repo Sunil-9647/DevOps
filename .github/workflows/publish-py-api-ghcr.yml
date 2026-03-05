@@ -42,7 +42,40 @@ jobs:
             type=sha,format=short
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push (TARGET=prod)
+      - name: Build image locally (no push) for smoke test
+        uses: docker/build-push-action@v6
+        with:
+          context: docker-learning/labs/python-fastapi-dockerfile
+          push: false
+          load: true
+          build-args: |
+            TARGET=prod
+          tags: ${{ env.IMAGE_NAME }}:smoke-${{ github.sha }}
+
+      - name: Smoke test (fail if / is not 200)
+        run: |
+          set -euo pipefail
+
+          PORT=18080
+          docker rm -f api-smoke >/dev/null 2>&1 || true
+
+          docker run -d --name api-smoke -p ${PORT}:8000 ${{ env.IMAGE_NAME }}:smoke-${{ github.sha }}
+
+          echo "Waiting for API..."
+          for i in $(seq 1 25); do
+            if curl -fsS http://127.0.0.1:${PORT}/ >/dev/null; then
+              echo "API is responding."
+              break
+            fi
+            sleep 1
+          done
+
+          echo "Smoke check:"
+          curl -f http://127.0.0.1:${PORT}/
+
+          docker rm -f api-smoke
+
+      - name: Build and push to GHCR (only if smoke test passes)
         uses: docker/build-push-action@v6
         with:
           context: docker-learning/labs/python-fastapi-dockerfile
@@ -51,3 +84,8 @@ jobs:
             TARGET=prod
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Cleanup (always)
+        if: always()
+        run: |
+          docker rm -f api-smoke >/dev/null 2>&1 || true
