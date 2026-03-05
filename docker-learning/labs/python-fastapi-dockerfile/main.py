@@ -34,7 +34,7 @@ def get_database_url() -> str:
 
 @app.get("/")
 def root():
-    return Response(content="BROKEN RELEASE", status_code=500)
+    return {"status":"ok","message":"Hello v2 from container"}
 
 @app.get("/db-check")
 def db_check():
