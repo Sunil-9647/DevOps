@@ -36,6 +36,7 @@ def get_database_url() -> str:
 def root():
     return {"status": "ok", "message": "Hello v2 from container"}
 
+
 @app.get("/db-check")
 def db_check():
     db_url = get_database_url()
