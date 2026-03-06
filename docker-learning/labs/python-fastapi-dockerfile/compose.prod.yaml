@@ -1,6 +1,6 @@
 services:
   api:
-    image: ghcr.io/sunil-9647/devops-py-api:sha-2435712
+    image: ghcr.io/sunil-9647/devops-py-api@sha256:53c6d0d34253648b13ec111a83d3dc2253abb824e8a4368e237aa51e4ede5dc4
     pull_policy: always
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
     restart: unless-stopped
