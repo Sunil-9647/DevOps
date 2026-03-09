@@ -1,4 +1,4 @@
-## Day 33 Notes 04 —Build Docker image in CI and publish to a registry (GHCR)
+## Day 33 Notes 05 —Build Docker image in CI and publish to a registry (GHCR)
 
 ### 0) Day-33 Goal (what we wanted by end of the day)
 
