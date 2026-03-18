@@ -89,6 +89,8 @@ not in:
 + DB process crash  
 + route definition itself
 
+---
+
 ### 4) Incident debugging workflow we followed
 
 #### Step 1 — Check container state
