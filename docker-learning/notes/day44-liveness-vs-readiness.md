@@ -86,7 +86,7 @@ Cons:
 
 ---
 
-###4) Endpoints implemented
+### 4) Endpoints implemented
 `/`
 
 ```JSON
