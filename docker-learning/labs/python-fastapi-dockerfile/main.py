@@ -36,6 +36,23 @@ def get_database_url() -> str:
 def root():
     return {"status":"ok","message":"Hello v2 from container"}
 
+
+@app.get("/ready")
+def ready():
+    db_url = get_database_url()
+    if not db_url:
+        return {"ok": False, "ready": False, "error": "DATABASE_URL not set"}
+
+    try:
+        import psycopg
+        with psycopg.connect(db_url, connect_timeout=3) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT 1;")
+                cur.fetchone()
+        return {"ok": True, "ready": True}
+    except Exception as e:
+        return {"ok": False, "ready": False, "error": str(e)}
+
 @app.get("/db-check")
 def db_check():
     db_url = get_database_url()
