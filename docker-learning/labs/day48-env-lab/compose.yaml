@@ -1,0 +1,8 @@
+services:
+  app:
+    image: alpine:3.20
+    env_file:
+      - app.env.example
+    environment:
+      APP_ENV: production
+    command: env
