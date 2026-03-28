@@ -11,6 +11,6 @@ docker run -d --name pyapi -p 8080:8000 py-api:3
 curl http://localhost:8080/
 
 ## Check health
-docker ps --filter name=pyapi
-docker inspect --format='{{.State.Health.Status}}' pyapi
+docker ps --filter name=pyapi  
+docker inspect --format='{{.State.Health.Status}}' pyapi  
 EOF
