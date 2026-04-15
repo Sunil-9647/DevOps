@@ -27,6 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: validate
 
+    outputs:
+      image_ref: ${{ steps.image_meta.outputs.image_ref }}
+      image_digest: ${{ steps.image_meta.outputs.image_digest }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -53,7 +57,18 @@ jobs:
         run: |
           docker push ghcr.io/sunil-9647/day54-demo:git-${{ steps.vars.outputs.short_sha }}
 
+      - name: Capture image metadata
+        id: image_meta
+        run: |
+          IMAGE_REF="ghcr.io/sunil-9647/day54-demo:git-${{ steps.vars.outputs.short_sha }}"
+          REPO_DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' "$IMAGE_REF")"
+          IMAGE_DIGEST="${REPO_DIGEST#*@}"
+
+          echo "image_ref=$IMAGE_REF" >> "$GITHUB_OUTPUT"
+          echo "image_digest=$IMAGE_DIGEST" >> "$GITHUB_OUTPUT"
+
       - name: Show pushed image reference
         run: |
-          echo "Pushed image: ghcr.io/sunil-9647/day54-demo:git-${{ steps.vars.outputs.short_sha }}"
+          echo "Pushed image: ${{ steps.image_meta.outputs.image_ref }}"
+          echo "Pushed digest: ${{ steps.image_meta.outputs.image_digest }}"
 
