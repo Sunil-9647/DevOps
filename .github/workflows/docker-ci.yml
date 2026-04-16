@@ -98,3 +98,30 @@ jobs:
         run: |
           echo "If deployment fails, rollback target is: $PREVIOUS_IMAGE"
 
+  verify_staging:
+    runs-on: ubuntu-latest
+    needs: [build_and_push, deploy_staging]
+
+    env:
+      ENVIRONMENT: staging
+
+    steps:
+      - name: Show verification target
+        run: |
+          echo "Verifying environment: $ENVIRONMENT"
+          echo "Image under verification: ${{ needs.build_and_push.outputs.image_ref }}"
+          echo "Digest under verification: ${{ needs.build_and_push.outputs.image_digest }}"
+
+      - name: Placeholder verification checklist
+        run: |
+          echo "Verification checklist:"
+          echo "- container state check"
+          echo "- logs check"
+          echo "- health check"
+          echo "- endpoint check"
+          echo "- dependency connectivity check"
+
+      - name: Verification placeholder note
+        run: |
+          echo "This is a verification-style placeholder step"
+          echo "Real remote verification is not wired in yet"
