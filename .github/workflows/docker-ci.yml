@@ -72,12 +72,29 @@ jobs:
           echo "Pushed image: ${{ steps.image_meta.outputs.image_ref }}"
           echo "Pushed digest: ${{ steps.image_meta.outputs.image_digest }}"
 
-  show_release_info:
+  deploy_staging:
     runs-on: ubuntu-latest
     needs: build_and_push
 
+    env:
+      ENVIRONMENT: staging
+      PREVIOUS_IMAGE: ghcr.io/sunil-9647/day54-demo:git-previous123
+
     steps:
-      - name: Show image reference from previous job
+      - name: Show deployment plan
         run: |
-          echo "Received image ref: ${{ needs.build_and_push.outputs.image_ref }}"
-          echo "Received image digest: ${{ needs.build_and_push.outputs.image_digest }}"
+          echo "Environment: $ENVIRONMENT"
+          echo "Previous image: $PREVIOUS_IMAGE"
+          echo "New image: ${{ needs.build_and_push.outputs.image_ref }}"
+          echo "New digest: ${{ needs.build_and_push.outputs.image_digest }}"
+
+      - name: Placeholder deploy action
+        run: |
+          echo "Deploying exact image to $ENVIRONMENT"
+          echo "This is a deployment-style placeholder step"
+          echo "No real remote deployment is being performed yet"
+
+      - name: Show rollback target
+        run: |
+          echo "If deployment fails, rollback target is: $PREVIOUS_IMAGE"
+
