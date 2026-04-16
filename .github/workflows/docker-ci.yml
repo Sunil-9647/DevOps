@@ -72,3 +72,12 @@ jobs:
           echo "Pushed image: ${{ steps.image_meta.outputs.image_ref }}"
           echo "Pushed digest: ${{ steps.image_meta.outputs.image_digest }}"
 
+  show_release_info:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+
+    steps:
+      - name: Show image reference from previous job
+        run: |
+          echo "Received image ref: ${{ needs.build_and_push.outputs.image_ref }}"
+          echo "Received image digest: ${{ needs.build_and_push.outputs.image_digest }}"
