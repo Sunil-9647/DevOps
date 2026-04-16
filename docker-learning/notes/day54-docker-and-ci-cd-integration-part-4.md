@@ -12,31 +12,31 @@ By this point, the workflow already validated code, built the Docker image, push
 
 I created my first real GitHub Actions workflow for Docker CI. The workflow had two jobs: `validate` and `build_image`. The `validate` job checked out the repository and performed a simple placeholder validation. The `build_image` job depended on validation, calculated a short commit SHA, built a Docker image using my existing Day-49 lab Dockerfile, and tagged the image with a commit-based tag. The workflow ran successfully in GitHub Actions, which proved that I can now build Docker images inside CI with proper job dependency flow.
 
---
+---
 
 ### 2) First GHCR-integrated Docker CI workflow
 
 I extended my GitHub Actions workflow so that it not only validated the code and built the image, but also logged in to GHCR and pushed a real Docker image to the registry. The image was tagged with a commit-based tag and successfully pushed as `ghcr.io/sunil-9647/day54-demo:git-31576a0`. The push logs also showed the exact image digest, which proved that the pipeline is now producing a real registry artifact with exact identity.
 
---
+---
 
 ### 3) Capturing image reference and digest as job outputs
 
 I updated my GitHub Actions workflow so that the `build_and_push` job not only built and pushed the Docker image, but also captured the exact pushed image reference and digest as formal job outputs. The workflow successfully recorded values like `ghcr.io/sunil-9647/day54-demo:git-a06bf80` and the corresponding `sha256` digest. This made the pipeline stronger because later jobs can now consume exact artifact identity directly instead of relying only on logs.
 
---
+---
 
 ### 4) Consumer job successfully read image_ref and image_digest
 
 I added a third job called `show_release_info` to my GitHub Actions workflow. This job depended on `build_and_push` and consumed the exact `image_ref` and `image_digest` through job outputs. The run succeeded and clearly showed the exact image reference and digest produced by the earlier stage. This proved that later pipeline jobs can safely consume exact artifact identity without recalculating it. This is an important step before adding real deployment logic.
 
---
+---
 
 ### 5) Deploy-style placeholder job added
 
 I replaced the simple consumer job with a `deploy_staging` placeholder job. This job consumed the exact `image_ref` and `image_digest` from the earlier `build_and_push` job and also included deployment-style context such as the target environment and a previous known-good image for rollback thinking. The workflow successfully showed a deployment plan, a placeholder deploy action, and a rollback target. This helped convert the pipeline from simple artifact handoff into deployment-oriented release thinking.
 
---
+---
 
 ### Full logical workflow shape completed
 
@@ -55,7 +55,7 @@ By the end of Day-54, my GitHub Actions workflow had this full logical structure
 
 This is the correct basic release shape for a Dockerized CI/CD workflow.
 
---
+---
 
 ### Exact artifact identity was preserved across the workflow
 
@@ -77,7 +77,7 @@ It ensures that later stages use the exact artifact that CI built and pushed.
 
 Later jobs must consume exact artifact identity, not guess or reconstruct it.
 
---
+---
 
 ### Real practical achieved
 
@@ -125,7 +125,7 @@ I turned the consumer job into a deployment-style placeholder that showed:
 
 I completed the workflow shape by adding a verification placeholder stage with a clear release checklist.
 
---
+---
 
 ### Biggest lessons from Day-54 overall
 
@@ -143,7 +143,7 @@ The biggest things I learned from Day-54 are:
 - verification is a separate and necessary stage after deployment  
 - a strong pipeline is not only automation; it is artifact discipline and release traceability
 
---
+---
 
 ### Final understanding statement for Day-54
 
