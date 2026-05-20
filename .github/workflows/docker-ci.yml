@@ -3,6 +3,9 @@ name: Docker CI
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - "docker-learning/labs/day49-cache-lab/Dockerfile.good/**"
+      - ".github/workflows/docker-ci.yml"
   workflow_dispatch:
 
 permissions:
